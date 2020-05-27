@@ -10,7 +10,8 @@
     "prettier-check": "prettier 'src/**/*.{js,jsx,ts,tsx}' --list-different",
     "test": "jest --coverage",
     "test-watch": "jest --watch",
-    "ci": "yarn compile && yarn test && yarn prettier-check && yarn lint",
+    "pact": "jest --runInBand --config jest.pact.js",
+    "ci": "yarn compile && yarn test && yarn pact && yarn prettier-check && yarn lint",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
