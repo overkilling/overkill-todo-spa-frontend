@@ -6,6 +6,6 @@ export const isApiHealthy = async (apiBaseUrl: string): Promise<boolean> => {
   })
   return instance
     .get('/health')
-    .then(response => response.data)
+    .then(response => response.data.status)
     .then(text => text === 'ok')
 }

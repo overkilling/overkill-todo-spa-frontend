@@ -7,7 +7,7 @@ describe('Healthcheck API', () => {
   it('returns true for healthy API', async () => {
     nock(apiBaseUrl)
       .get('/health')
-      .reply(200, 'ok', { 'Access-Control-Allow-Origin': '*' })
+      .reply(200, { status: 'ok' }, { 'Access-Control-Allow-Origin': '*' })
 
     const healthResponse = await isApiHealthy(apiBaseUrl)
     expect(healthResponse).toBeTruthy()
@@ -16,7 +16,7 @@ describe('Healthcheck API', () => {
   it('returns false for unhealthy API', async () => {
     nock(apiBaseUrl)
       .get('/health')
-      .reply(200, 'fail', { 'Access-Control-Allow-Origin': '*' })
+      .reply(200, { status: 'fail' }, { 'Access-Control-Allow-Origin': '*' })
 
     const healthResponse = await isApiHealthy(apiBaseUrl)
     expect(healthResponse).toBeFalsy()

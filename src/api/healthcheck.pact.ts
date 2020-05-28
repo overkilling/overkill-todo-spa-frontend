@@ -18,7 +18,7 @@ describe('Healthcheck API Pact test', () => {
   afterEach(async () => await provider.verify())
   afterAll(async () => await provider.finalize())
 
-  it('checks API is healthy', async () => {
+  it('checks API status', async () => {
     await provider.addInteraction({
       state: 'application is healthy',
       uponReceiving: 'healthcheck',
@@ -29,34 +29,18 @@ describe('Healthcheck API Pact test', () => {
       willRespondWith: {
         status: 200,
         headers: {
-          'Content-Type': 'application/json; charset=utf-8'
+          'Content-Type': 'application/json'
         },
-        body: Matchers.somethingLike('ok')
+        body: {
+          status: Matchers.term({
+            matcher: 'ok|fail',
+            generate: 'ok'
+          })
+        }
       }
     })
 
     const healthResponse = await isApiHealthy(provider.mockService.baseUrl)
     expect(healthResponse).toBeTruthy()
-  })
-
-  it('checks API is unhealthy', async () => {
-    await provider.addInteraction({
-      state: 'application is unhealthy',
-      uponReceiving: 'healthcheck',
-      withRequest: {
-        method: 'GET',
-        path: '/health'
-      },
-      willRespondWith: {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8'
-        },
-        body: Matchers.somethingLike('fail')
-      }
-    })
-
-    const healthResponse = await isApiHealthy(provider.mockService.baseUrl)
-    expect(healthResponse).toBeFalsy()
   })
 })
