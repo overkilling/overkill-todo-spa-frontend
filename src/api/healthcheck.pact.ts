@@ -1,6 +1,6 @@
 import * as Matchers from '@pact-foundation/pact/dsl/matchers'
+import { setupTodoApiIntegration } from '@todo/support/pact'
 import { isApiHealthy } from './healthcheck'
-import { setupTodoApiIntegration } from '../support/pactHelper'
 
 describe('Healthcheck API Pact test', () => {
   const { provider } = setupTodoApiIntegration()
