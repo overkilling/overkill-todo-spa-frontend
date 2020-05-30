@@ -1,6 +1,5 @@
-module.exports = {
-  roots: ['./src'],
-  setupFilesAfterEnv: ['./src/setupTests.ts'],
-  testMatch: ['<rootDir>/**/*.pact.{js,jsx,ts,tsx}'],
-  testTimeout: 10000
-}
+const commonConfig = require('./jest.config')
+
+module.exports = Object.assign({}, commonConfig, {
+  testMatch: ['<rootDir>/**/*.pact.{js,jsx,ts,tsx}']
+})
