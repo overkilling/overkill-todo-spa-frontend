@@ -1,5 +1,5 @@
 import { eachLike, somethingLike } from '@pact-foundation/pact/dsl/matchers'
-import { setupTodoApiIntegration } from '../support/pactHelper'
+import { setupTodoApiIntegration } from '@todo/support/pact'
 import { getTodos } from './todos'
 
 describe('Todos API pact test', () => {
