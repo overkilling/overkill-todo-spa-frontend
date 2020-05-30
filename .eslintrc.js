@@ -21,10 +21,7 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module'
   },
-  plugins: [
-    'react',
-    '@typescript-eslint'
-  ],
+  plugins: ['react', '@typescript-eslint'],
   rules: {
     '@typescript-eslint/no-unused-vars': [2, { args: 'none' }],
     'generator-star-spacing': 0,

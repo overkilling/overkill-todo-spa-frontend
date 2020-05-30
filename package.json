@@ -13,7 +13,8 @@
     "pact": "jest --runInBand --config jest.pact.js",
     "ci": "yarn compile && yarn test && yarn pact && yarn prettier-check && yarn lint",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "cypress:open": "cypress open"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -39,9 +40,12 @@
     "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.4.2",
+    "cypress": "^4.7.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-chai-friendly": "^0.6.0",
+    "eslint-plugin-cypress": "^2.11.1",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-node": "^11.1.0",

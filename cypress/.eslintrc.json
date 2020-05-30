@@ -1,0 +1,7 @@
+{
+  "extends": ["plugin:cypress/recommended", "plugin:chai-friendly/recommended"],
+  "rules": {
+    "jest/valid-expect": 0,
+    "jest/expect-expect": 0
+  }
+}
