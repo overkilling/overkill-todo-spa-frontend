@@ -23,6 +23,15 @@ describe('Todos API Client', () => {
       await expect(client.getTodos()).resolves.toEqual(responseBody)
     })
 
+    it('rejects when API response is malformed', async () => {
+      mockEndpoint.reply(200, 'malformed', responseHeaders)
+
+      await expect(client.getTodos()).rejects.toMatchObject({
+        response: { status: 200, data: 'malformed' },
+        message: 'invalid response schema'
+      })
+    })
+
     it('rejects when API returns error', async () => {
       mockEndpoint.reply(500, 'servererror', responseHeaders)
 

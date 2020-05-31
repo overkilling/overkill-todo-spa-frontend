@@ -15,7 +15,8 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "cypress:open": "cypress open",
-    "cypress:run": "start-server-and-test 'yarn start' http-get://localhost:8080 'yarn cypress run'"
+    "cypress:run": "start-server-and-test 'yarn start' http-get://localhost:8080 'yarn cypress run'",
+    "api:generate": "quicktype src/api/todos.schema.json -s schema -o src/api/types.ts -t Todo --just-types"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -59,6 +60,7 @@
     "jest-environment-jsdom-fourteen": "^1.0.1",
     "nock": "^12.0.3",
     "prettier": "2.0.2",
+    "quicktype": "^15.0.240",
     "redux-mock-store": "^1.5.4",
     "start-server-and-test": "^1.11.0",
     "style-loader": "^1.1.3",
@@ -70,6 +72,7 @@
   "dependencies": {
     "@material-ui/core": "^4.9.11",
     "@material-ui/icons": "^4.9.1",
+    "ajv": "^6.12.2",
     "axios": "^0.19.2",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
