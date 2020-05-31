@@ -1,5 +1,6 @@
 import path from 'path'
 import { Pact } from '@pact-foundation/pact'
+import { TodoClient } from '@todo/api/client'
 
 const todoApiProvider = new Pact({
   consumer: 'SPA',
@@ -14,6 +15,9 @@ const todoApiProvider = new Pact({
 
 export const setupTodoApiIntegration = () => {
   const provider = todoApiProvider
+  const createClient = () => {
+    return new TodoClient(provider.mockService.baseUrl)
+  }
 
   jest.setTimeout(15000)
 
@@ -23,5 +27,5 @@ export const setupTodoApiIntegration = () => {
     await provider.verify()
   })
 
-  return { provider }
+  return { provider, createClient }
 }
