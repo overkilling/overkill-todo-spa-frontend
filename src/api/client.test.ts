@@ -10,36 +10,65 @@ describe('Todos API Client', () => {
   }
 
   describe('getting todos', () => {
+    const mockEndpoint = nock(apiBaseUrl).get('/todos')
+
     it('fetches a list of todos', async () => {
       const responseBody = [
         { todo: 'Some task' },
         { todo: 'Another task' },
         { todo: 'Yet another task' }
       ]
-      nock(apiBaseUrl).get('/todos').reply(200, responseBody, responseHeaders)
+      mockEndpoint.reply(200, responseBody, responseHeaders)
 
-      const todos = await client.getTodos()
-      expect(todos).toEqual(responseBody)
+      await expect(client.getTodos()).resolves.toEqual(responseBody)
+    })
+
+    it('rejects when API returns error', async () => {
+      mockEndpoint.reply(500, 'servererror', responseHeaders)
+
+      await expect(client.getTodos()).rejects.toMatchObject({
+        response: { status: 500 }
+      })
+    })
+
+    it('rejects when request fails', async () => {
+      console.error = jest.fn()
+      mockEndpoint.replyWithError('something bad happened')
+
+      await expect(client.getTodos()).rejects.toMatchObject({
+        message: 'Network Error'
+      })
+      expect(console.error).toBeCalled()
     })
   })
 
   describe('healthcheck', () => {
-    it('returns true for healthy API', async () => {
-      nock(apiBaseUrl)
-        .get('/health')
-        .reply(200, { status: 'ok' }, responseHeaders)
+    const mockEndpoint = nock(apiBaseUrl).get('/health')
 
-      const healthResponse = await client.isApiHealthy()
-      expect(healthResponse).toBeTruthy()
+    it('is healthy for health API response', async () => {
+      mockEndpoint.reply(200, { status: 'ok' }, responseHeaders)
+
+      await expect(client.isApiHealthy()).resolves.toBeTruthy()
     })
 
-    it('returns false for unhealthy API', async () => {
-      nock(apiBaseUrl)
-        .get('/health')
-        .reply(200, { status: 'fail' }, responseHeaders)
+    it('is unhealthy for unhealthy API response', async () => {
+      mockEndpoint.reply(200, { status: 'fail' }, responseHeaders)
 
-      const healthResponse = await client.isApiHealthy()
-      expect(healthResponse).toBeFalsy()
+      await expect(client.isApiHealthy()).resolves.toBeFalsy()
+    })
+
+    it('is unhealthy for error code API response ', async () => {
+      mockEndpoint.reply(500, { status: 'ok' }, responseHeaders)
+
+      await expect(client.isApiHealthy()).resolves.toBeFalsy()
+    })
+
+    it('is unhealthy for request error', async () => {
+      console.error = jest.fn()
+      mockEndpoint.replyWithError('something bad happend')
+
+      await expect(client.isApiHealthy()).resolves.toBeFalsy()
+      expect(console.error).toBeCalled()
     })
   })
 })

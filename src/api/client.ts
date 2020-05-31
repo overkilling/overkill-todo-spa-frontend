@@ -14,14 +14,13 @@ export class TodoClient {
   }
 
   async getTodos(): Promise<Todo[]> {
-    const response = await this.httpClient.get('/todos')
-    return response.data
+    return this.httpClient.get<Todo[]>('/todos').then(async ({ data }) => data)
   }
 
   async isApiHealthy(): Promise<boolean> {
     return this.httpClient
       .get('/health')
-      .then(response => response.data.status)
-      .then(text => text === 'ok')
+      .then(({ data: { status } }) => status === 'ok')
+      .catch(() => false)
   }
 }
