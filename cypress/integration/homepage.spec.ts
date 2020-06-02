@@ -3,7 +3,7 @@ describe('Homepage', () => {
     cy.server()
     cy.route({
       method: 'GET',
-      url: '/todos',
+      url: '/api/todos',
       response: [
         { todo: 'First item' },
         { todo: 'Second item' },
