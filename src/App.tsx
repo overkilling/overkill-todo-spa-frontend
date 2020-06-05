@@ -17,7 +17,7 @@ const store = createStore(
 )
 // sagaMiddleware.run(clockSaga)
 
-const todoClient = new TodoClient('http://localhost:8080/api')
+const todoClient = new TodoClient('/api')
 
 const AppComponent = () => (
   <Container>
