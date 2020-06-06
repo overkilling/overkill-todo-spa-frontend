@@ -37,3 +37,10 @@ jobs:
           repository: overkilling/overkill-todo-spa-frontend/spa
           tag_with_ref: true
           tag_with_sha: true
+      - name: Notify infrastructure of new image
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.BOT_TOKEN }}
+          repository: overkilling/overkill-todo-infrastructure
+          event-type: new-image-version
+          client-payload: '{"repository": "${{ github.repository }}", "image_version": "$(echo sha-$(git rev-parse --short HEAD))"}'
