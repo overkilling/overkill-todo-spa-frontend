@@ -32,3 +32,63 @@ The intent is to provide some practice to the developer and, perhaps, some educa
 
 Although this repository only contains the SPA component, there's an [infrastructure repository](https://github.com/overkilling/overkill-todo-infrastructure) which ties the whole application together.
 It allows to start the application locally through `docker-compose`, but it doesn't deploy it yet to any real environment.
+
+## Getting started
+
+To get started with the SPA, clone the codebase to your local environment and install all prequisites:
+
+```
+git clone git@github.com:overkilling/overkill-todo-spa-frontend.git
+cd overkill-todo-spa-frontend
+yarn install
+```
+
+### Running the application
+
+There are a few ways of running the application, from a quick and dirty way to running the "full stack".
+
+To quickly start the application from the cloned code, you can run the following (assuming you have a backend API and database already running):
+
+```
+yarn start
+```
+
+It is possible to also run it through docker, in a similar way that will be used in the [infrastructure repository](https://github.com/overkilling/overkill-todo-infrastructure).
+The commands to build and run the image are:
+
+```
+docker build -t todo-spa .
+docker run -p 80:80 todo-spa
+```
+
+There is also the [infrastructure repository](https://github.com/overkilling/overkill-todo-infrastructure), which contains instructions and code to run the whole application locally, including the backend, database and the observability stack (`fluentd`, `elasticsearch`, etc).
+For more info, checkout the repo.
+
+### Testing
+
+There three levels of tests: unit, end to end and pact tests. You can run them by:
+
+```
+yarn test # run all tests
+yarn test-watch # watch file changes and run only the relevant tests
+yarn cypress:run # runs the end to end tests
+yarn cypress:open # opens the cypress browser that allows running particular tests
+yarn pact # runs pact tests from the consumer perspective
+```
+
+### Pact
+
+As mentioned above, running `yarn pact` will run the consumer tests. It will also generate a consumer contract in the `pacts` directory, which can be used by providers (that is, the backend API) to ensure they fulfil the contract.
+
+### Storybook
+
+For prototyping and visualizing individual components, a [Storybook](https://storybook.js.org/) is also available.
+It can be accessed by running:
+
+```
+yarn storybook
+```
+
+### Github Actions
+
+TODO
