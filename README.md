@@ -67,19 +67,55 @@ For more info, checkout the repo.
 
 ### Testing
 
-There three levels of tests: unit, end to end and pact tests. You can run them by:
+There three levels of tests: unit, end to end and pact tests. None of them require a running API or database.
+
+To run all tests
 
 ```
-yarn test # run all tests
-yarn test-watch # watch file changes and run only the relevant tests
-yarn cypress:run # runs the end to end tests
-yarn cypress:open # opens the cypress browser that allows running particular tests
-yarn pact # runs pact tests from the consumer perspective
+yarn ci
 ```
 
-### Pact
+#### Unit tests
 
-As mentioned above, running `yarn pact` will run the consumer tests. It will also generate a consumer contract in the `pacts` directory, which can be used by providers (that is, the backend API) to ensure they fulfil the contract.
+To run all unit tests:
+
+```
+yarn test
+```
+
+To watch file changes and run only the relevant tests:
+
+```
+yarn test-watch
+```
+
+#### End to end
+
+End to end tests are run using [Cypress](https://www.cypress.io/).
+
+To run all end to end tests:
+
+```
+yarn cypress:run
+```
+
+To open the Cypress browser, allowing to run and observe individual tests:
+
+```
+yarn cypress:open
+```
+
+#### Pact
+
+To run the consumer side of the pact tests:
+
+```
+yarn pact
+```
+
+The above command will also generate a consumer contract in the `pacts` directory, which can be used by providers (that is, the backend API) to ensure they fulfil the contract.
+Currenlty, the backend API will use https://raw.githubusercontent.com/overkilling/overkill-todo-infrastructure/master/pacts/spa-api.json as the contract.
+Ideally a Pact Broker could be used, to mediate the valid consumer and provider versions.
 
 ### Storybook
 
