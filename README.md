@@ -128,4 +128,11 @@ yarn storybook
 
 ### Github Actions
 
-TODO
+The Continuous Integration (CI) tooling used in this project is [Github Actions](https://github.com/features/actions), mainly because it's free and easy to use.
+
+The CI workflow, defined `.github/workflows/ci.yml`, is:
+
+- On `master` and PR branches: download dependencies and run all tests (`yarn ci`)
+- On `master` only: after the tests pass, build and publish a Docker image
+
+After a new image is published, further actions are triggered in the [infrastructure](https://github.com/overkilling/overkill-todo-infrastructure) repository.
