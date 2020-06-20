@@ -9,4 +9,4 @@ RUN yarn build
 # Run stage
 FROM nginx:latest
 COPY --from=build-stage /app/dist/ /usr/share/nginx/html
-COPY --from=build-stage /app/src/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build-stage /app/src/nginx.conf /etc/nginx/templates/default.conf.template
