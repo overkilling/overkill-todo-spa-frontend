@@ -3,6 +3,7 @@
 > Proud in his colours, as the chromium gleams - Motörhead
 
 ![CI](https://github.com/overkilling/overkill-todo-spa-frontend/workflows/CI/badge.svg?branch=master)
+[![codebeat badge](https://codebeat.co/badges/018d2689-5c2b-44a6-9e4f-4aaba9b70270)](https://codebeat.co/projects/github-com-overkilling-overkill-todo-spa-frontend-master)
 [![GitHub license](https://img.shields.io/github/license/overkilling/overkill-todo-spa-frontend)](https://github.com/overkilling/overkill-todo-spa-frontend/blob/master/LICENSE)
 
 An overkill implementation of a Single Page Application (SPA) for managing todos, implemented in React.
