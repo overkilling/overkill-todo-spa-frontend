@@ -63,6 +63,14 @@ docker build -t todo-spa .
 docker run -p 80:80 todo-spa
 ```
 
+Optionally it is posssible to start the dockerised application with a stubbed backend API.
+The stubbed API will be based on the pact files under `./pact`.
+To run:
+
+```
+docker-compose up --build
+```
+
 There is also the [infrastructure repository](https://github.com/overkilling/overkill-todo-infrastructure), which contains instructions and code to run the whole application locally, including the backend, database and the observability stack (`fluentd`, `elasticsearch`, etc).
 For more info, checkout the repo.
 
