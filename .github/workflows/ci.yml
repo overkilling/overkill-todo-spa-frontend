@@ -21,9 +21,38 @@ jobs:
       - name: Run ci tests
         run: yarn ci
 
-  build-and-push-container:
+  provider-pact:
     runs-on: ubuntu-latest
     needs: test
+    steps:
+      - name: Checkout API code
+        uses: actions/checkout@v2
+        with:
+          path: api
+          repository: overkilling/overkill-todo-monolith-api
+      - name: Checkout SPA code
+        uses: actions/checkout@v2
+        with:
+          path: spa
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.16.1'
+      - name: Install dependencies
+        run: yarn install
+        working-directory: spa
+      - name: Generate pact
+        run: yarn pact
+        working-directory: spa
+      - name: Copies pact
+        run: cp -v spa/pacts/*.json api/pact/
+      - name: Run provider side of pact tests
+        run: PACT_URL=/pact/spa-api.json make pact
+        working-directory: api
+
+  build-and-push-container:
+    runs-on: ubuntu-latest
+    needs: [test, provider-pact]
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Checkout code
