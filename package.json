@@ -11,6 +11,7 @@
     "test": "jest --coverage",
     "test-watch": "jest --watch",
     "pact": "jest --runInBand --config jest.pact.js",
+    "pact:copy-to-infra": "cp -v pacts/*.json ../overkill-todo-infrastructure/pacts/",
     "ci": "yarn compile && yarn test && yarn pact && yarn cypress:run && yarn prettier-check && yarn lint",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
