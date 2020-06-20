@@ -16,7 +16,8 @@
     "build-storybook": "build-storybook",
     "cypress:open": "cypress open",
     "cypress:run": "start-server-and-test 'yarn start' http-get://localhost:8080 'yarn cypress run'",
-    "api:generate": "quicktype src/api/todos.schema.json -s schema -o src/api/types.ts -t Todo --just-types"
+    "api:generate": "quicktype src/api/todos.schema.json -s schema -o src/api/types.ts -t Todo --just-types",
+    "schema:copy-from-local-api": "cp -v ../overkill-todo-monolith-api/http/schemas/*.schema.json src/api/"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
