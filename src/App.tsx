@@ -1,14 +1,14 @@
 import { Container, Typography } from '@material-ui/core'
 import * as React from 'react'
 import { Provider } from 'react-redux'
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
+import { applyMiddleware, compose, createStore } from 'redux'
 import createSagaMiddleware from 'redux-saga'
-import { Todos } from '@todo/components'
+import { Todos, reducers } from '@todo/components'
 import { TodoClient } from '@todo/api/client'
 
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
-  combineReducers({}),
+  reducers,
   compose(
     applyMiddleware(sagaMiddleware),
     // @ts-ignore
