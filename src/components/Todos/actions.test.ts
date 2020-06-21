@@ -1,4 +1,4 @@
-import { updateTodos } from './actions'
+import { updateTodos, UPDATE_TODOS } from './actions'
 
 describe('Todo Actions', () => {
   it('returns action for UPDATE_TODOS', () => {
@@ -6,7 +6,7 @@ describe('Todo Actions', () => {
     const action = updateTodos(todos)
 
     expect(action).toEqual({
-      type: 'UPDATE_TODOS',
+      type: UPDATE_TODOS,
       todos
     })
   })

@@ -1,13 +1,13 @@
 import { Todo } from '@todo/api/types'
 
-type UpdateTodos = 'UPDATE_TODOS'
+export const UPDATE_TODOS = 'UPDATE_TODOS'
 
-interface UpdateTodosAction {
-  type: UpdateTodos
+export interface UpdateTodosAction {
+  type: 'UPDATE_TODOS'
   todos: Todo[]
 }
 
 export const updateTodos = (todos: Todo[]): UpdateTodosAction => ({
-  type: 'UPDATE_TODOS',
+  type: UPDATE_TODOS,
   todos
 })
