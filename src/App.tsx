@@ -3,9 +3,10 @@ import * as React from 'react'
 import { Provider } from 'react-redux'
 import { applyMiddleware, compose, createStore } from 'redux'
 import createSagaMiddleware from 'redux-saga'
-import { Todos, reducers } from '@todo/components'
+import { Todos, reducers, sagas } from '@todo/components'
 import { TodoClient } from '@todo/api/client'
 
+const todoClient = new TodoClient('/api')
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
   reducers,
@@ -15,14 +16,12 @@ const store = createStore(
     window.devToolsExtension ? window.devToolsExtension() : f => f
   )
 )
-// sagaMiddleware.run(clockSaga)
-
-const todoClient = new TodoClient('/api')
+sagaMiddleware.run(sagas, todoClient)
 
 const AppComponent = () => (
   <Container>
     <Typography variant="h1">Todo App</Typography>
-    <Todos todoClient={todoClient} />
+    <Todos />
   </Container>
 )
 
