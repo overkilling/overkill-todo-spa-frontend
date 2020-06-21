@@ -1,14 +1,14 @@
 import { Todo } from '@todo/api/types'
 import { UpdateTodosAction, UPDATE_TODOS } from './actions'
 
-interface TodosState {
+export interface TodosState {
   todos: Todo[]
 }
 
-const initalState: TodosState = { todos: [] }
+export const initialState: TodosState = { todos: [] }
 
 const todosReducer = (
-  state: TodosState = initalState,
+  state: TodosState = initialState,
   { type, todos }: UpdateTodosAction
 ) => {
   switch (type) {

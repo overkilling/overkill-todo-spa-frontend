@@ -1,18 +1,21 @@
 import { TodoClient } from '@todo/api/client'
-import { Todo } from '@todo/api/types'
 import * as React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateTodos } from './actions'
+import { TodosState } from './reducer'
 
 interface TodosProps {
   todoClient: TodoClient
 }
 
 export const Todos = ({ todoClient }: TodosProps) => {
-  const [todos, setTodos] = useState<Todo[]>([])
+  const todos = useSelector((state: TodosState) => state.todos)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     todoClient.getTodos().then(newTodos => {
-      setTodos(newTodos)
+      dispatch(updateTodos(newTodos))
     })
   }, [])
 

@@ -1,8 +1,9 @@
-import * as React from 'react'
-import { render, waitFor } from '@testing-library/react'
-import { Todos } from './Todos'
+import { waitFor } from '@testing-library/react'
 import { TodoClient } from '@todo/api/client'
 import nock from 'nock'
+import * as React from 'react'
+import { Todos } from './Todos'
+import { render } from '@todo/support/render-for-redux'
 
 describe('Todos component', () => {
   const apiBaseUrl = 'http://api.example.com'
@@ -19,7 +20,6 @@ describe('Todos component', () => {
       'Contet-Type': 'application/json'
     }
     nock(apiBaseUrl).get('/todos').reply(200, responseBody, responseHeaders)
-
     const { getByText } = render(<Todos todoClient={todoClient} />)
 
     await waitFor(() => {
